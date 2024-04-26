@@ -24,6 +24,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -89,8 +90,10 @@ fun ArticleItemView(article: Article) {
             .padding(16.dp)
     ) {
         AsyncImage(
+            modifier = Modifier.fillMaxWidth(),
             model = article.imageUrl,
-            contentDescription = null
+            contentDescription = null,
+            contentScale = ContentScale.FillWidth
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
