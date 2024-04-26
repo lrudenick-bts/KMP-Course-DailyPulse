@@ -6,6 +6,14 @@ plugins {
 }
 
 kotlin {
+    targets.all {
+        compilations.all {
+            compilerOptions.configure {
+                freeCompilerArgs.add("-Xexpect-actual-classes")
+            }
+        }
+    }
+
     androidTarget {
         compilations.all {
             kotlinOptions {
@@ -32,6 +40,7 @@ kotlin {
             implementation(libs.ktor.client.content.negotiation)
             implementation(libs.ktor.serialization.kotlinx.json)
             implementation(libs.kotlinx.datetime)
+            implementation(libs.koin.core)
         }
 
         androidMain.dependencies {
