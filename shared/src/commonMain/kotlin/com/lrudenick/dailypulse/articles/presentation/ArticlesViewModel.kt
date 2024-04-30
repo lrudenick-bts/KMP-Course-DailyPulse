@@ -1,6 +1,8 @@
-package com.lrudenick.dailypulse.articles
+package com.lrudenick.dailypulse.articles.presentation
 
 import com.lrudenick.dailypulse.BaseViewModel
+import com.lrudenick.dailypulse.articles.application.ArticlesUseCase
+import com.lrudenick.dailypulse.articles.presentation.ArticlesState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch

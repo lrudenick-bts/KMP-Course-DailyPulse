@@ -1,9 +1,14 @@
+import java.io.FileInputStream
+import java.util.Properties
+import com.codingfeline.buildkonfig.compiler.FieldSpec.Type.STRING
+
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.skie)
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.sqlDelight)
+    alias(libs.plugins.buildKonfig)
 }
 
 kotlin {
@@ -81,5 +86,22 @@ sqldelight {
         create(name = "DailyPulseDatabase") {
             packageName.set("com.lrudenick.dailypulse.db")
         }
+    }
+}
+
+buildkonfig {
+    packageName = "com.lrudenick.dailypulse"
+
+    defaultConfigs {
+        val prop = Properties().apply {
+            load(FileInputStream(File(rootProject.rootDir, "local.properties")))
+        }
+        val apiKey: String = prop.getProperty("API_KEY")
+
+        require(apiKey.isNotEmpty()) {
+            "Register your api key here: https://newsapi.org/docs/get-started and place it in local.properties as `API_KEY`"
+        }
+
+        buildConfigField(STRING, "API_KEY", apiKey)
     }
 }

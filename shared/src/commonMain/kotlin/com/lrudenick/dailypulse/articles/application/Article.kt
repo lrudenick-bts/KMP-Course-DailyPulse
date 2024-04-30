@@ -1,4 +1,4 @@
-package com.lrudenick.dailypulse.articles
+package com.lrudenick.dailypulse.articles.application
 
 data class Article(
     val title: String,

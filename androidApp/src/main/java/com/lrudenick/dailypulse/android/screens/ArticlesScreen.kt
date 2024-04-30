@@ -7,20 +7,18 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.outlined.List
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
@@ -31,23 +29,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
-import com.lrudenick.dailypulse.articles.Article
-import com.lrudenick.dailypulse.articles.ArticlesViewModel
+import com.lrudenick.dailypulse.android.screens.composables.ErrorMessage
+import com.lrudenick.dailypulse.android.screens.composables.Loader
+import com.lrudenick.dailypulse.articles.application.Article
+import com.lrudenick.dailypulse.articles.presentation.ArticlesViewModel
 import org.koin.androidx.compose.getViewModel
 
 @Composable
 fun ArticlesScreen(
     articlesViewModel: ArticlesViewModel = getViewModel(),
+    onSourcesButtonClick: () -> Unit,
     onAboutButtonClick: () -> Unit
 ) {
     val articlesState = articlesViewModel.articlesState.collectAsState()
 
     Column {
-        AppBar(onAboutButtonClick)
+        AppBar(onSourcesButtonClick, onAboutButtonClick)
 
         if (articlesState.value.articles.isEmpty())
             Loader()
@@ -61,11 +61,18 @@ fun ArticlesScreen(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 private fun AppBar(
+    onSourcesButtonClick: () -> Unit,
     onAboutButtonClick: () -> Unit,
 ) {
     TopAppBar(
         title = { Text(text = "Articles") },
         actions = {
+            IconButton(onClick = onSourcesButtonClick) {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Outlined.List,
+                    contentDescription = "Sources Button",
+                )
+            }
             IconButton(onClick = onAboutButtonClick) {
                 Icon(
                     imageVector = Icons.Outlined.Info,
@@ -132,32 +139,5 @@ fun ArticleItemView(article: Article) {
             modifier = Modifier.align(Alignment.End)
         )
         Spacer(modifier = Modifier.height(4.dp))
-    }
-}
-
-@Composable
-fun Loader() {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        CircularProgressIndicator(
-            modifier = Modifier.width(64.dp),
-            color = MaterialTheme.colorScheme.surfaceVariant,
-            trackColor = MaterialTheme.colorScheme.secondary,
-        )
-    }
-}
-
-@Composable
-fun ErrorMessage(message: String) {
-    Box(
-        modifier = Modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        Text(
-            text = message,
-            style = TextStyle(fontSize = 28.sp, textAlign = TextAlign.Center)
-        )
     }
 }

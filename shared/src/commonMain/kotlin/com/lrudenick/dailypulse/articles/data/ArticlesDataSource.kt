@@ -1,4 +1,4 @@
-package com.lrudenick.dailypulse.articles
+package com.lrudenick.dailypulse.articles.data
 
 import com.lrudenick.dailypulse.db.DailyPulseDatabase
 

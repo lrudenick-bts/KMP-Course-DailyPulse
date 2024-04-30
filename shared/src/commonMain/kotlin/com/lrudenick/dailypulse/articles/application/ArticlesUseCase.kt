@@ -1,5 +1,7 @@
-package com.lrudenick.dailypulse.articles
+package com.lrudenick.dailypulse.articles.application
 
+import com.lrudenick.dailypulse.articles.data.ArticleRaw
+import com.lrudenick.dailypulse.articles.data.ArticlesRepository
 import kotlinx.datetime.Clock
 import kotlinx.datetime.Instant
 import kotlinx.datetime.TimeZone

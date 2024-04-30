@@ -1,4 +1,4 @@
-package com.lrudenick.dailypulse.articles
+package com.lrudenick.dailypulse.articles.data
 
 class ArticlesRepository(
     private val dataSource: ArticlesDataSource,
@@ -11,7 +11,7 @@ class ArticlesRepository(
             return fetchArticles()
         }
         val articlesDb = dataSource.getAllArticles()
-        println("Got ${articlesDb.size} from the database!")
+        println("Got ${articlesDb.size} articles from the database!")
 
         if (articlesDb.isEmpty()) {
             return fetchArticles()

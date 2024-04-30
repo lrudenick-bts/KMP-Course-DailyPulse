@@ -1,10 +1,10 @@
 package com.lrudenick.dailypulse.articles.di
 
-import com.lrudenick.dailypulse.articles.ArticlesDataSource
-import com.lrudenick.dailypulse.articles.ArticlesRepository
-import com.lrudenick.dailypulse.articles.ArticlesService
-import com.lrudenick.dailypulse.articles.ArticlesUseCase
-import com.lrudenick.dailypulse.articles.ArticlesViewModel
+import com.lrudenick.dailypulse.articles.data.ArticlesDataSource
+import com.lrudenick.dailypulse.articles.data.ArticlesRepository
+import com.lrudenick.dailypulse.articles.data.ArticlesService
+import com.lrudenick.dailypulse.articles.application.ArticlesUseCase
+import com.lrudenick.dailypulse.articles.presentation.ArticlesViewModel
 import org.koin.dsl.module
 
 val articlesModule = module {
